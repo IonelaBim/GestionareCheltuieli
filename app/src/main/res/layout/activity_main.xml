@@ -4,19 +4,6 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <Button
-        android:text="@string/scan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scan_button"
-        android:background="@color/colorPrimaryDark"
-        android:textStyle="normal|bold"
-        android:lineSpacingExtra="18sp"
-        android:textColor="@android:color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="174dp" />
-
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,5 +26,35 @@
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scan_button"
+        android:background="@color/colorPrimaryDark"
+        android:textStyle="normal|bold"
+        android:lineSpacingExtra="18sp"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp" />
+
+    <TextView
+        android:id="@+id/scan_format"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textIsSelectable="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/scan_button" />
+
+    <TextView
+        android:id="@+id/scan_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textIsSelectable="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/scan_format" />
+
 
 </RelativeLayout>
