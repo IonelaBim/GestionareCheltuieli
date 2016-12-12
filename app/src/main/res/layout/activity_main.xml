@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
@@ -11,22 +13,17 @@
         android:theme="?attr/actionBarTheme"
         android:minHeight="?attr/actionBarSize"
         android:id="@+id/toolbar"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
-    <TextView
-        android:text="Cos de cumparaturi"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:textSize="24sp"
-        android:textStyle="normal|bold"
-        android:fontFamily="sans-serif"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_light"
-        android:layout_centerHorizontal="true" />
+        android:orientation="vertical"
+        android:id="@+id/linearMain">
 
+    </LinearLayout>
     <Button
         android:text="@string/scan"
         android:layout_width="wrap_content"
@@ -40,21 +37,55 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp" />
 
-    <TextView
-        android:id="@+id/scan_format"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/list"
         android:layout_height="wrap_content"
-        android:textIsSelectable="true"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/scan_button" />
+        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.ListView"
+        android:layout_marginTop="190dp"
+        android:layout_below="@+id/scan_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+    </ListView>
+
+    <ImageButton
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:srcCompat="@drawable/cart"
+        android:id="@+id/cartButton"
+        style="@android:style/Widget.ImageButton"
+        android:background="@android:color/background_light"
+        android:adjustViewBounds="true"
+        android:tint="@color/zxing_viewfinder_laser"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="18dp"
+        android:layout_marginEnd="18dp"
+        android:cropToPadding="false"
+        android:baselineAlignBottom="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="6dp" />
 
     <TextView
-        android:id="@+id/scan_content"
+        android:text="Cos de cumparaturi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textIsSelectable="true"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/scan_format" />
+        android:id="@+id/textView3"
+        android:textSize="25sp"
+        android:textStyle="normal|bold"
+        android:fontFamily="sans-serif"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:layout_alignBottom="@+id/imageButton2"
+        android:layout_toLeftOf="@+id/imageButton2"
+        android:layout_toStartOf="@+id/imageButton2"
+        android:layout_marginRight="44dp"
+        android:layout_marginEnd="44dp" />
+
+
 
 
 </RelativeLayout>
