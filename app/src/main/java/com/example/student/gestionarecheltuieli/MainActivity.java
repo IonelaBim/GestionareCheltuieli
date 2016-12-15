@@ -25,20 +25,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
     private Button scanBtn;
     private ImageButton cartButton;
-    private ArrayAdapter<String> adapter;
-    ArrayList<String> listItems=new ArrayList<String>();
-    String[] itemname = {
-            "Safari",
-            "Camera",
-            "Global",
+    private ArrayList<Property> rentalProperties = new ArrayList<>();
 
-    };
-    Integer[] imgid={
-            R.drawable.ic_plus,
-            R.drawable.cart,
-            R.drawable.ic_minus,
 
-    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,24 +43,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scanBtn.setOnClickListener(this);
         cartButton.setOnClickListener(this);
 
-        //adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, listItems);
+        //create property elements
+        rentalProperties.add(
+                new Property( "Smith Street", "A large 3 bedroom apa.", 450.00, "property_image_1"));
 
-       // adapter = new ArrayAdapter<String>(this,android.R.layout.list_row, android.R.id.from_name, listItems);
-        CustomListAdapter adapter=new CustomListAdapter(this, itemname, imgid);
+        rentalProperties.add(
+                new Property( "King Street","A fully furnished studio apartment overl.", 320.00, "property_image_2"));
+
+        rentalProperties.add(
+                new Property( "Liverpool Road",   "A standard 3 bedroom house in ", 360.00, "property_image_3"));
+
+        rentalProperties.add(
+                new Property( "Sunny Street", "Come and see this amazing studio ", 360.00, "property_image_4"));
+
+        //create our new array adapter
+        ArrayAdapter<Property> adapter = new CustomListAdapter(this, 0, rentalProperties);
+
+        //Find list view and bind it with the custom adapter
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
+        //adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, listItems);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//       // adapter = new ArrayAdapter<String>(this,android.R.layout.list_row, android.R.id.from_name, listItems);
+//        CustomListAdapter adapter=new CustomListAdapter(this, itemname, imgid);
+//        ListView listView = (ListView) findViewById(R.id.list);
+//        listView.setAdapter(adapter);
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO Auto-generated method stub
-                String Slecteditem= itemname[+position];
-                Toast.makeText(getApplicationContext(), Slecteditem, Toast.LENGTH_SHORT).show();
 
-            }
-        });
     }
 
 
@@ -102,9 +100,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String scanContent = scanningResult.getContents();
             //String scanFormat = scanningResult.getFormatName();
 //
-           // itemname.add(scanContent);
+//            itemname.add(scanContent);
 //            adapter.notifyDataSetChanged();
-
+               
 
         }else{
             Toast toast = Toast.makeText(getApplicationContext(),
