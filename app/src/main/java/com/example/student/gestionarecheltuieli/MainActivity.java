@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button scanBtn;
     private ImageButton cartButton;
     private ArrayList<Property> rentalProperties = new ArrayList<>();
+    private ArrayAdapter<Property> adapter;
 
 
     @Override
@@ -35,14 +36,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scanBtn = (Button)findViewById(R.id.scan_button);
         cartButton = (ImageButton)findViewById(R.id.cartButton);
 
-
-
-
         //formatTxt = (TextView)findViewById(R.id.scan_format);
         //contentTxt = (TextView)findViewById(R.id.scan_content);
         scanBtn.setOnClickListener(this);
         cartButton.setOnClickListener(this);
-
+        adapter = new CustomListAdapter(this, 0, rentalProperties);
         //create property elements
         rentalProperties.add(
                 new Property( "Smith Street", "A large 3 bedroom apa.", 450.00, "property_image_1"));
@@ -57,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Property( "Sunny Street", "Come and see this amazing studio ", 360.00, "property_image_4"));
 
         //create our new array adapter
-        ArrayAdapter<Property> adapter = new CustomListAdapter(this, 0, rentalProperties);
 
         //Find list view and bind it with the custom adapter
         ListView listView = (ListView) findViewById(R.id.list);
@@ -101,8 +98,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //String scanFormat = scanningResult.getFormatName();
 //
 //            itemname.add(scanContent);
-//            adapter.notifyDataSetChanged();
-               
+
+
+            rentalProperties.add(
+                    new Property( "Sunny Street", "Come and see this amazing studio ", 360.00, "property_image_4"));
+            adapter.notifyDataSetChanged();
+
 
         }else{
             Toast toast = Toast.makeText(getApplicationContext(),
