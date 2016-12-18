@@ -5,11 +5,21 @@
     android:orientation="vertical"
     android:background="#e1e1e1">
 
+
+    <TextView
+        android:text="dsdadafsaf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView11" />
+
     <ListView
-        android:id="@+id/products_listview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:divider="#f55" />
+        android:id="@+id/cartList"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.ListView"
+        android:layout_below="@+id/textView11"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp">
+    </ListView>
+
 </LinearLayout>

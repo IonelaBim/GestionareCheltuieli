@@ -3,6 +3,7 @@ package com.example.student.gestionarecheltuieli;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import android.widget.AdapterView;
@@ -18,9 +19,6 @@ import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
-
-
-
 //public class MainActivity extends AppCompactActivity implements View.OnClickListener {
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
     private Button scanBtn;
@@ -33,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        scanBtn = (Button)findViewById(R.id.scan_button);
-        cartButton = (ImageButton)findViewById(R.id.cartButton);
+        scanBtn = (Button) findViewById(R.id.scan_button);
+        cartButton = (ImageButton) findViewById(R.id.cartButton);
 
         //formatTxt = (TextView)findViewById(R.id.scan_format);
         //contentTxt = (TextView)findViewById(R.id.scan_content);
@@ -42,33 +40,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cartButton.setOnClickListener(this);
         adapter = new CustomListAdapter(this, 0, rentalProperties);
         //create property elements
-        rentalProperties.add(
-                new Property( "Smith Street", "A large 3 bedroom apa.", 450.00, "property_image_1"));
 
         rentalProperties.add(
-                new Property( "King Street","A fully furnished studio apartment overl.", 320.00, "property_image_2"));
-
-        rentalProperties.add(
-                new Property( "Liverpool Road",   "A standard 3 bedroom house in ", 360.00, "property_image_3"));
-
-        rentalProperties.add(
-                new Property( "Sunny Street", "Come and see this amazing studio ", 360.00, "property_image_4"));
+                new Property("Sunny Street", "Come and see this amazing studio ", 360.00,1, "property_image_4"));
 
         //create our new array adapter
 
         //Find list view and bind it with the custom adapter
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
-        //adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, android.R.id.text1, listItems);
+//add event listener so we can handle clicks
 
-//       // adapter = new ArrayAdapter<String>(this,android.R.layout.list_row, android.R.id.from_name, listItems);
-//        CustomListAdapter adapter=new CustomListAdapter(this, itemname, imgid);
-//        ListView listView = (ListView) findViewById(R.id.list);
-//        listView.setAdapter(adapter);
+
 
 
     }
-
 
 
     @Override
@@ -81,9 +67,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(v.getId()==R.id.cartButton){
             System.out.println("change to cart");
+            //Intent myIntent = new Intent(this, NewActivity.class);
+
             Intent intent = new Intent(this,Cart.class);
+            intent.putExtra("firstName", "Your First Name Here");
+            intent.putExtra("lastName", "Your Last Name Here");
             startActivity(intent);
         }
+
+
     }
 
 
@@ -97,11 +89,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String scanContent = scanningResult.getContents();
             //String scanFormat = scanningResult.getFormatName();
 //
-//            itemname.add(scanContent);
+
+            String[] tokens = scanContent.split(";");
+            int tokenCount = tokens.length;
+
 
 
             rentalProperties.add(
-                    new Property( "Sunny Street", "Come and see this amazing studio ", 360.00, "property_image_4"));
+                    new Property( tokens[0], tokens[1],Double.parseDouble(tokens[3]),1, "property_image_4"));
             adapter.notifyDataSetChanged();
 
 
