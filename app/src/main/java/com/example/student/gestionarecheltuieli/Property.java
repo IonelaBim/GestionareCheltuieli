@@ -3,7 +3,6 @@ package com.example.student.gestionarecheltuieli;
 //Base class to hold information about the property
 public class Property {
 
-
     private String productName;
     private String description;
     private String image;
@@ -28,11 +27,9 @@ public class Property {
     public String getImage() { return image; }
     public int getProductCount(){return product_count;}
 
-
     //seters
     public void setProductQuatity(int count) {
         this.product_count = count;
     }
-
 
 }

@@ -44,7 +44,7 @@ public class CartListAdapter extends ArrayAdapter<Property> {
             ImageView cart_plus = (ImageView) view.findViewById(R.id.cart_plus);
            final TextView quantityOfProd = (TextView) view.findViewById(R.id.cart_product_quantity);
 
-            //set address and description
+            //set product name
             String productName = property.getProductName();
             name.setText(productName);
 
@@ -57,11 +57,14 @@ public class CartListAdapter extends ArrayAdapter<Property> {
                 description.setText(property.getDescription());
             }
 
-            //set price and rental attributes
+            //set product price
             product_price.setText(String.valueOf(property.getPrice()) + "lei" );
             quantityOfProd.setText(String.valueOf(property.getProductCount()));
             //get the image associated with this property
             int imageID = context.getResources().getIdentifier(property.getImage(), "drawable", context.getPackageName());
+            if (imageID == 0){
+                imageID = context.getResources().getIdentifier("no_image", "drawable", context.getPackageName());
+            }
             image.setImageResource(imageID);
 
             cart_plus.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +74,7 @@ public class CartListAdapter extends ArrayAdapter<Property> {
                     property.setProductQuatity(current);
                     notifyDataSetChanged();
                     if(context instanceof Cart){
-                        ((Cart)context).sdada();
+                        ((Cart)context).totalAmount();
                     }
                 }
             });
@@ -81,10 +84,12 @@ public class CartListAdapter extends ArrayAdapter<Property> {
                     int current = property.getProductCount()-1;
                     if(current == 0) {
                         Integer index = (Integer) v.getTag();
-                        //items.remove(index.intValue());
                         cartProducts.remove(property);
                         notifyDataSetChanged();
-                        ((Cart)context).sdada();
+                        if(context instanceof Cart) {
+                            ((Cart) context).totalAmount();
+                        }
+                        MystaticVar.cartCount -= 1;
                         Toast.makeText(context, "Produsul a fost sters din cos.", Toast.LENGTH_LONG).show();
                         return;
                     }
@@ -92,7 +97,7 @@ public class CartListAdapter extends ArrayAdapter<Property> {
                     property.setProductQuatity(current);
                     notifyDataSetChanged();
                     if(context instanceof Cart){
-                        ((Cart)context).sdada();
+                        ((Cart)context).totalAmount();
                     }
 
                 }

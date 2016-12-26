@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.BarcodeFormat;
@@ -27,54 +28,50 @@ import static com.google.zxing.BarcodeFormat.QR_CODE;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
     private Button scanBtn;
     private ImageButton cartButton;
-    private ArrayList<Property> rentalProperties = new ArrayList<>();
+    private TextView cartCountView;
     private ArrayAdapter<Property> adapter;
 
+    public void CountCartProduct(int count){
+        cartCountView.setText(Integer.toString(count));
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         scanBtn = (Button) findViewById(R.id.scan_button);
         cartButton = (ImageButton) findViewById(R.id.cartButton);
+        cartCountView = (TextView) findViewById(R.id.cartCount);
 
-
+        CountCartProduct( MystaticVar.cartCount);
         scanBtn.setOnClickListener(this);
         cartButton.setOnClickListener(this);
-        adapter = new CustomListAdapter(this, 0, rentalProperties);
-        //create property elements
 
-        rentalProperties.add(
-                new Property("Sunny Street", "Come and see this amazing studio ", 360.00,1, "property_image_4"));
-
-        //create our new array adapter
+        //create a new array adapter
+        adapter = new CustomListAdapter(this, 0, MystaticVar.rentalProperties);
 
         //Find list view and bind it with the custom adapter
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
-
+        adapter.notifyDataSetChanged();
     }
 
-
+    //onClick Events
     @Override
     public void onClick(View v) {
+        //Scan button (Open camera to scan)
         if(v.getId()==R.id.scan_button){
-            System.out.println("scannn");
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
         }
-
+        //Cart button (change to Cart activity)
         if(v.getId()==R.id.cartButton){
-            System.out.println("change to cart");
-            //Intent myIntent = new Intent(this, NewActivity.class);
-
             Intent intent = new Intent(this,Cart.class);
             startActivity(intent);
         }
 
-
     }
-
 
 
     @Override
@@ -85,8 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //we have a result
             String scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-
-            System.out.println(scanFormat);
+          //verify if scaned result is a QR_CODE
             if(scanningResult.getFormatName().compareTo(BarcodeFormat.QR_CODE.toString())!= 0)
             {
                 Toast toast = Toast.makeText(getApplicationContext(),"Nu ati scanat un cod QR!", Toast.LENGTH_SHORT);
@@ -97,8 +93,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String[] tokens = scanContent.split(";");
             int tokenCount = tokens.length;
 
-            rentalProperties.add(
-                    new Property( tokens[0], tokens[1],Double.parseDouble(tokens[3]),1, "property_image_4"));
+            String img="no_image";
+            if ((tokenCount >= 5) && (!tokens[4].equals("-"))) {
+                img = tokens[4];
+            }
+            MystaticVar.rentalProperties.add(
+                    new Property( tokens[0], tokens[1],Double.parseDouble(tokens[3]),1,img));
             adapter.notifyDataSetChanged();
 
 
