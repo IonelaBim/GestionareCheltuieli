@@ -13,11 +13,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 
 import java.util.ArrayList;
+
+import static com.google.zxing.BarcodeFormat.QR_CODE;
 
 //public class MainActivity extends AppCompactActivity implements View.OnClickListener {
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
@@ -34,8 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         scanBtn = (Button) findViewById(R.id.scan_button);
         cartButton = (ImageButton) findViewById(R.id.cartButton);
 
-        //formatTxt = (TextView)findViewById(R.id.scan_format);
-        //contentTxt = (TextView)findViewById(R.id.scan_content);
+
         scanBtn.setOnClickListener(this);
         cartButton.setOnClickListener(this);
         adapter = new CustomListAdapter(this, 0, rentalProperties);
@@ -49,10 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Find list view and bind it with the custom adapter
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(adapter);
-//add event listener so we can handle clicks
-
-
-
 
     }
 
@@ -70,8 +69,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Intent myIntent = new Intent(this, NewActivity.class);
 
             Intent intent = new Intent(this,Cart.class);
-            intent.putExtra("firstName", "Your First Name Here");
-            intent.putExtra("lastName", "Your Last Name Here");
             startActivity(intent);
         }
 
@@ -87,13 +84,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (scanningResult != null) {
             //we have a result
             String scanContent = scanningResult.getContents();
-            //String scanFormat = scanningResult.getFormatName();
-//
+            String scanFormat = scanningResult.getFormatName();
+
+            System.out.println(scanFormat);
+            if(scanningResult.getFormatName().compareTo(BarcodeFormat.QR_CODE.toString())!= 0)
+            {
+                Toast toast = Toast.makeText(getApplicationContext(),"Nu ati scanat un cod QR!", Toast.LENGTH_SHORT);
+                toast.show();
+                return;
+            }
 
             String[] tokens = scanContent.split(";");
             int tokenCount = tokens.length;
-
-
 
             rentalProperties.add(
                     new Property( tokens[0], tokens[1],Double.parseDouble(tokens[3]),1, "property_image_4"));

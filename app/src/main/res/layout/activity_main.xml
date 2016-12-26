@@ -79,5 +79,21 @@
         android:layout_marginTop="16dp">
     </ListView>
 
+    <TextView
+        android:text="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textStyle="normal|bold"
+        android:textSize="18sp"
+        android:textColor="@color/zxing_viewfinder_laser"
+        android:background="@drawable/rouded_textview"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/cartButton"
+        android:layout_alignEnd="@+id/cartButton"
+        android:layout_marginRight="31dp"
+        android:layout_marginEnd="31dp" />
+
 
 </RelativeLayout>

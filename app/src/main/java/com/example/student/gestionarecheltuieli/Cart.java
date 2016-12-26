@@ -6,17 +6,25 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.view.View;
 
-import java.util.ArrayList;
-
-import static android.R.attr.value;
 import static com.example.student.gestionarecheltuieli.R.layout.activity_cart;
 
 public class Cart extends AppCompatActivity {
 //    private ArrayList<Property> cartProducts = new ArrayList<>();
     private ArrayAdapter<Property> cartadapter;
-
+    TextView textGrandTotal;
+    public void sdada(){
+        double sum=0;
+        for (int i=0 ; i< cartadapter.getCount(); i++){
+            Object obj = cartadapter.getItem(i);
+            System.out.println(obj);
+            Double price = ((Property) obj).getPrice();
+            int quantity = ((Property) obj).getProductCount();
+            sum += price *quantity;
+        }
+        textGrandTotal.setText(Double.toString(sum));
+        //return sum;
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,19 +34,23 @@ public class Cart extends AppCompatActivity {
         cartadapter = new CartListAdapter(this, 0, MystaticVar.cartProd);
         //create property elements
 
-
-        //create our new array adapter
-
+        textGrandTotal = (TextView) findViewById(R.id.total);
+        sdada();
+        //textGrandTotal.setText(Double.toString(sdada()));
+        //create our new array ada
         //Find list view and bind it with the custom adapter
         ListView cartList = (ListView) findViewById(R.id.cartList);
         cartList.setAdapter(cartadapter);
         Intent intent = getIntent();
 
+//        cartList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//                sdada();
+//               // textGrandTotal.setText(Double.toString(sdada()));
+//            }
+//        });
 
-
-
-
-    }
-
-
+        }
 }
