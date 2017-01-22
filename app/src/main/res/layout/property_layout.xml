@@ -46,7 +46,7 @@ android:paddingRight="5dp">
             android:layout_toRightOf="@+id/thumbnail"
             android:text="Pineapple"
             android:textColor="#040404"
-            android:textSize="15dip"
+            android:textSize="15sp"
             android:typeface="sans"
             android:textStyle="normal|bold" />
 
@@ -66,7 +66,7 @@ android:paddingRight="5dp">
                 android:paddingRight="5dip"
                 android:text="Rs. 200"
                 android:textColor="@color/zxing_custom_viewfinder_mask"
-                android:textSize="12dip"
+                android:textSize="12sp"
                 android:layout_width="56dip"
                 android:layout_marginTop="0dip"
                 android:layout_gravity="fill"
@@ -79,7 +79,7 @@ android:paddingRight="5dp">
                 android:orientation="vertical" >
 
                 <TextView
-                    android:text="Pret"
+                    android:text="@string/price"
                     android:layout_width="41dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView5"
@@ -93,7 +93,7 @@ android:paddingRight="5dp">
                     android:paddingRight="25dip"
                     android:text="100 lei"
                     android:textColor="#343434"
-                    android:textSize="12dip" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
@@ -102,7 +102,7 @@ android:paddingRight="5dp">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/add_cart"
-                android:text="ADD"
+                android:text="@string/add"
                 android:textStyle="normal|bold"
                 android:textSize="12sp"
                 android:focusable="false"

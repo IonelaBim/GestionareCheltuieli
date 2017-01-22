@@ -2,4 +2,11 @@
     <string name="app_name">GestionareCheltuieli</string>
     <string name="action_settings">Settings</string>
     <string name="scan">Scan</string>
+    <string name="main_activity_title">Produse scanate</string>
+    <string name="x">X</string>
+    <string name="zero">0</string>
+    <string name="cart">cart</string>
+    <string name="total">Total: </string>
+    <string name="price">Pret</string>
+    <string name="add">ADD</string>
 </resources>

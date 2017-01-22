@@ -19,7 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Cart"
-                  android:parentActivityName=".MainActivity"
                   android:label="Cart">
         </activity>
     </application>

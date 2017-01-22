@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -41,7 +42,7 @@
             android:layout_toRightOf="@+id/thumbnail"
             android:textColor="#040404"
             android:text="Rs. 200"
-            android:textSize="15dip"
+            android:textSize="15sp"
             android:typeface="sans"
             android:textStyle="normal|bold" />
 
@@ -51,7 +52,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/product_name"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            tools:ignore="RtlHardcoded">
 
             <TextView
                 android:id="@+id/product_description"
@@ -62,7 +64,7 @@
                 android:paddingRight="5dip"
                 android:text="Rs. 200"
                 android:textColor="@color/zxing_viewfinder_mask"
-                android:textSize="12dip"
+                android:textSize="12sp"
                 android:layout_width="56dip" />
 
             <LinearLayout
@@ -72,7 +74,7 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:text="Pret"
+                    android:text="@string/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/textView5"
@@ -86,7 +88,7 @@
                     android:paddingRight="25dip"
                     android:text="100 lei"
                     android:textColor="#343434"
-                    android:textSize="12dip" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
             <ImageView
@@ -103,7 +105,7 @@
                 android:paddingLeft="15dip"
                 android:paddingRight="15dip"
                 android:text="1"
-                android:textSize="12dip"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <ImageView

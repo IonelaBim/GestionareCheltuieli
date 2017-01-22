@@ -37,12 +37,12 @@ public class CartListAdapter extends ArrayAdapter<Property> {
             View view = inflater.inflate(R.layout.property_cart_layout, null);
 
             TextView name = (TextView) view.findViewById(R.id.product_name);
-           final TextView description = (TextView) view.findViewById(R.id.product_description);
+            final TextView description = (TextView) view.findViewById(R.id.product_description);
             TextView product_price = (TextView) view.findViewById(R.id.product_price);
             ImageView image = (ImageView) view.findViewById(R.id.image);
             ImageView cart_minus = (ImageView) view.findViewById(R.id.cart_minus);
             ImageView cart_plus = (ImageView) view.findViewById(R.id.cart_plus);
-           final TextView quantityOfProd = (TextView) view.findViewById(R.id.cart_product_quantity);
+            final TextView quantityOfProd = (TextView) view.findViewById(R.id.cart_product_quantity);
 
             //set product name
             String productName = property.getProductName();
@@ -57,6 +57,7 @@ public class CartListAdapter extends ArrayAdapter<Property> {
                 description.setText(property.getDescription());
             }
 
+            // show entire description
             description.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     description.setText(property.getDescription());
@@ -67,30 +68,34 @@ public class CartListAdapter extends ArrayAdapter<Property> {
             //set product price
             product_price.setText(String.valueOf(property.getPrice()) + "lei" );
             quantityOfProd.setText(String.valueOf(property.getProductCount()));
-            //get the image associated with this property
+
+            //get the image associated with this property(if image is not find in the drawable folder, we will show default image called  "no_image" )
             int imageID = context.getResources().getIdentifier(property.getImage(), "drawable", context.getPackageName());
             if (imageID == 0){
                 imageID = context.getResources().getIdentifier("no_image", "drawable", context.getPackageName());
             }
             image.setImageResource(imageID);
 
+            //cart_plus event listener
             cart_plus.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    int current = property.getProductCount()+1;
-                    quantityOfProd.setText(String.valueOf(current));
-                    property.setProductQuatity(current);
-                    notifyDataSetChanged();
+                    int current = property.getProductCount()+1;  //increase current value
+                    quantityOfProd.setText(String.valueOf(current)); //show updated value
+                    property.setProductQuatity(current); // update product quantity value in Array
+                    MystaticVar.cartCount +=1; //update product cart counter
+                    notifyDataSetChanged(); //update ListAdapter
                     if(context instanceof Cart){
                         ((Cart)context).totalAmount();
                     }
                 }
             });
 
+            //cart_minus event listener
             cart_minus.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     int current = property.getProductCount()-1;
+                    // delete product from cart if quantity = 0
                     if(current == 0) {
-                        Integer index = (Integer) v.getTag();
                         cartProducts.remove(property);
                         notifyDataSetChanged();
                         if(context instanceof Cart) {
@@ -102,6 +107,7 @@ public class CartListAdapter extends ArrayAdapter<Property> {
                     }
                     quantityOfProd.setText(String.valueOf(current));
                     property.setProductQuatity(current);
+                    MystaticVar.cartCount -=1;
                     notifyDataSetChanged();
                     if(context instanceof Cart){
                         ((Cart)context).totalAmount();

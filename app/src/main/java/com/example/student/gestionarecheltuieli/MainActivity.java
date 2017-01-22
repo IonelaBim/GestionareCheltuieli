@@ -3,10 +3,8 @@ package com.example.student.gestionarecheltuieli;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
@@ -20,35 +18,38 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 
-import java.util.ArrayList;
-
-import static com.google.zxing.BarcodeFormat.QR_CODE;
-
 //public class MainActivity extends AppCompactActivity implements View.OnClickListener {
 public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
-    private Button scanBtn;
+    private Button scanBtn, closeBtn;
     private ImageButton cartButton;
-    private TextView cartCountView;
+    private TextView productCartCounter;
     private ArrayAdapter<Property> adapter;
 
-    public void CountCartProduct(int count){
-        cartCountView.setText(Integer.toString(count));
+    public void CountCartProducts(int count){
+        productCartCounter.setText(Integer.toString(count));
     };
 
+    //onCreate function
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+     //any call you make to findViewById will lookup the id from content view (set with setContentView)
+        closeBtn = (Button) findViewById(R.id.close_btn);
         scanBtn = (Button) findViewById(R.id.scan_button);
         cartButton = (ImageButton) findViewById(R.id.cartButton);
-        cartCountView = (TextView) findViewById(R.id.cartCount);
+        productCartCounter = (TextView) findViewById(R.id.cartCount);
 
-        CountCartProduct( MystaticVar.cartCount);
+        //set buttons click listeners
         scanBtn.setOnClickListener(this);
         cartButton.setOnClickListener(this);
+        closeBtn.setOnClickListener(this);
 
-        //create a new array adapter
+        //set  products cart number
+        CountCartProducts( MystaticVar.cartCount);
+
+        //create a custom array adapter
         adapter = new CustomListAdapter(this, 0, MystaticVar.scanedProducts);
 
         //Find list view and bind it with the custom adapter
@@ -60,6 +61,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //onClick Events
     @Override
     public void onClick(View v) {
+       // implement the OnClickListener callback
+        //Close button (close application)
+        if(v.getId()==R.id.close_btn){
+            finish();
+            System.exit(0);
+        }
         //Scan button (Open camera to scan)
         if(v.getId()==R.id.scan_button){
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
@@ -70,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this,Cart.class);
             startActivity(intent);
         }
-
     }
 
 
@@ -83,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
           //verify if scaned result is a QR_CODE
-            if(scanningResult.getFormatName().compareTo(BarcodeFormat.QR_CODE.toString())!= 0)
+            if(scanFormat.compareTo(BarcodeFormat.QR_CODE.toString())!= 0)
             {
                 Toast toast = Toast.makeText(getApplicationContext(),"Nu ati scanat un cod QR!", Toast.LENGTH_SHORT);
                 toast.show();
@@ -92,20 +98,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             String[] tokens = scanContent.split(";");
             int tokenCount = tokens.length;
+            //verify if scanned result has a valid format(length; data types)
+            if (tokenCount < 4){
+                Toast toast = Toast.makeText(getApplicationContext(),"Codul scanat nu este valid", Toast.LENGTH_LONG);
+                toast.show();
+                return;
+            }else {
+                String img = "no_image";
+                if (!tokens[3].equals("-")) {
+                    img = tokens[3];
+                }
+                try {
+                    double price = Double.parseDouble(tokens[2]);
+                    MystaticVar.scanedProducts.add(new Property(tokens[0], tokens[1], price, 1, img));
+                    adapter.notifyDataSetChanged();
 
-            String img="no_image";
-            if ((tokenCount >= 5) && (!tokens[4].equals("-"))) {
-                img = tokens[4];
+                } catch (NumberFormatException e) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Codul scanat nu este valid", Toast.LENGTH_LONG);
+                    toast.show();
+                    e.printStackTrace(); //prints error
+                    return;
+
+                }
+
             }
-            MystaticVar.scanedProducts.add(
-                    new Property( tokens[0], tokens[1],Double.parseDouble(tokens[3]),1,img));
-            adapter.notifyDataSetChanged();
-
 
         }else{
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "No scan data received!", Toast.LENGTH_SHORT);
+                    "Nu s-au primit date de la scaner", Toast.LENGTH_SHORT);
             toast.show();
+            return;
         }
     }
 
