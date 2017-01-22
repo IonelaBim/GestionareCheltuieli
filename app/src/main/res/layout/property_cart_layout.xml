@@ -32,9 +32,6 @@
                 android:src="@drawable/property_image_1" />
         </LinearLayout>
 
-        <!-- Title Of Song -->
-
-
 
         <TextView
             android:id="@+id/product_name"
@@ -43,8 +40,10 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/thumbnail"
             android:textColor="#040404"
+            android:text="Rs. 200"
             android:textSize="15dip"
-            android:typeface="sans" />
+            android:typeface="sans"
+            android:textStyle="normal|bold" />
 
         <LinearLayout
             android:id="@+id/cart_plus_minus_layout"
@@ -62,9 +61,8 @@
                 android:layout_weight="0.07"
                 android:paddingRight="5dip"
                 android:text="Rs. 200"
-                android:textColor="#1d1d1d"
+                android:textColor="@color/zxing_viewfinder_mask"
                 android:textSize="12dip"
-                android:textStyle="bold"
                 android:layout_width="56dip" />
 
             <LinearLayout

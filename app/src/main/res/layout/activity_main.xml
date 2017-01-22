@@ -13,10 +13,10 @@
         android:theme="?attr/actionBarTheme"
         android:minHeight="?attr/actionBarSize"
         android:id="@+id/toolbar"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,25 +37,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp" />
 
-    <ImageButton
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        app:srcCompat="@drawable/cart"
-        android:id="@+id/cartButton"
-        style="@android:style/Widget.ImageButton"
-        android:background="@android:color/background_light"
-        android:adjustViewBounds="true"
-        android:tint="@color/zxing_viewfinder_laser"
-        android:scaleType="fitCenter"
-        android:layout_marginRight="18dp"
-        android:layout_marginEnd="18dp"
-        android:cropToPadding="false"
-        android:baselineAlignBottom="false"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="6dp" />
-
     <TextView
         android:text="Produse scanate"
         android:layout_width="wrap_content"
@@ -66,18 +47,24 @@
         android:fontFamily="sans-serif"
         android:textAlignment="center"
         android:textColor="@android:color/background_light"
-        android:layout_marginRight="44dp"
-        android:layout_marginEnd="44dp" />
+        android:layout_alignTop="@+id/cartButton"
+        android:layout_centerHorizontal="true" />
 
-    <ListView
-        android:id="@+id/list"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        style="@style/Widget.AppCompat.ListView"
-        android:layout_below="@+id/scan_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp">
-    </ListView>
+    <ImageButton
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:srcCompat="@drawable/cart"
+        android:id="@+id/cartButton"
+        style="@android:style/Widget.ImageButton"
+        android:background="@android:color/background_light"
+        android:adjustViewBounds="true"
+        android:tint="@color/zxing_viewfinder_laser"
+        android:scaleType="fitCenter"
+        android:cropToPadding="false"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/linearMain"
+        android:layout_toLeftOf="@+id/cartCount"
+        android:layout_toStartOf="@+id/cartCount" />
 
     <TextView
         android:text="0"
@@ -89,11 +76,22 @@
         android:textColor="?attr/colorBackgroundFloating"
         android:background="@drawable/rouded_textview"
         android:gravity="center"
-        android:layout_marginRight="33dp"
-        android:layout_marginEnd="33dp"
-        android:layout_below="@+id/linearMain"
-        android:layout_alignRight="@+id/cartButton"
-        android:layout_alignEnd="@+id/cartButton" />
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
+        android:layout_marginBottom="16dp" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.ListView"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/cartButton"
+        android:layout_toEndOf="@+id/cartButton">
+    </ListView>
 
 
 </RelativeLayout>

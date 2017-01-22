@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cartButton.setOnClickListener(this);
 
         //create a new array adapter
-        adapter = new CustomListAdapter(this, 0, MystaticVar.rentalProperties);
+        adapter = new CustomListAdapter(this, 0, MystaticVar.scanedProducts);
 
         //Find list view and bind it with the custom adapter
         ListView listView = (ListView) findViewById(R.id.list);
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if ((tokenCount >= 5) && (!tokens[4].equals("-"))) {
                 img = tokens[4];
             }
-            MystaticVar.rentalProperties.add(
+            MystaticVar.scanedProducts.add(
                     new Property( tokens[0], tokens[1],Double.parseDouble(tokens[3]),1,img));
             adapter.notifyDataSetChanged();
 

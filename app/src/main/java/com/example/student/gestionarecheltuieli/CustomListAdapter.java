@@ -18,21 +18,21 @@ import java.util.List;
 class CustomListAdapter extends ArrayAdapter<Property> {
 
     private Context context;
-    private List<Property> rentalProperties;
+    private List<Property> scanedProducts;
 
     //constructor, call on creation
     public CustomListAdapter(Context context, int resource, ArrayList<Property> objects) {
         super(context, resource, objects);
 
         this.context = context;
-        this.rentalProperties = objects;
+        this.scanedProducts = objects;
     }
 
     //called when rendering the list
     public View getView(int position, View convertView, ViewGroup parent) {
 
         //get the property we are displaying
-       final Property property = rentalProperties.get(position);
+       final Property property = scanedProducts.get(position);
 
         //get the inflater and inflate the XML layout for each item
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE);
@@ -40,7 +40,7 @@ class CustomListAdapter extends ArrayAdapter<Property> {
 
         //
         TextView name = (TextView) view.findViewById(R.id.product_name);
-        TextView description = (TextView) view.findViewById(R.id.product_description);
+       final  TextView description = (TextView) view.findViewById(R.id.product_description);
         TextView product_price = (TextView) view.findViewById(R.id.product_price);
         ImageView image = (ImageView) view.findViewById(R.id.image);
         Button addtoCart = (Button) view.findViewById(R.id.addtocart);
@@ -50,14 +50,21 @@ class CustomListAdapter extends ArrayAdapter<Property> {
         name.setText(productName);
 
         //display trimmed excerpt for product description
+        //display trimmed excerpt for description
         int descriptionLength = property.getDescription().length();
-        if(descriptionLength >= 100){
-            String descriptionTrim = property.getDescription().substring(0, 100) + "...";
+        if(descriptionLength >= 50){
+            String descriptionTrim = property.getDescription().substring(0, 50) + "(...)";
             description.setText(descriptionTrim);
         }else{
             description.setText(property.getDescription());
         }
 
+        description.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                description.setText(property.getDescription());
+
+            }
+        });
         //set product price
         product_price.setText(String.valueOf(property.getPrice()) + "lei" );
 
@@ -75,7 +82,7 @@ class CustomListAdapter extends ArrayAdapter<Property> {
 
                 MystaticVar.cartCount +=1;
                 ((MainActivity)context).CountCartProduct(MystaticVar.cartCount);
-                Toast.makeText(context,"Produsul a fost adaugat in cos" , Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Produsul a fost adaugat in cos" , Toast.LENGTH_SHORT).show();
             }
         });
 

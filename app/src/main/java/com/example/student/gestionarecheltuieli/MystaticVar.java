@@ -8,6 +8,6 @@ import java.util.ArrayList;
 
 public class MystaticVar {
     public static int cartCount=0;
-    public static ArrayList<Property> rentalProperties = new ArrayList<>();
+    public static ArrayList<Property> scanedProducts = new ArrayList<>();
     public static ArrayList<Property> cartProd = new ArrayList<>();
 }

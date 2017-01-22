@@ -29,7 +29,7 @@ public class Cart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_cart);
-
+        
         cartadapter = new CartListAdapter(this, 0, MystaticVar.cartProd);
 
         textGrandTotal = (TextView) findViewById(R.id.total);
@@ -38,7 +38,6 @@ public class Cart extends AppCompatActivity {
         //Find list view and bind it with the custom adapter
         ListView cartList = (ListView) findViewById(R.id.cartList);
         cartList.setAdapter(cartadapter);
-        Intent intent = getIntent();
-
+        //Intent intent = getIntent();
         }
 }

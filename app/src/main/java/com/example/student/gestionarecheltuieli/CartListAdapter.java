@@ -37,7 +37,7 @@ public class CartListAdapter extends ArrayAdapter<Property> {
             View view = inflater.inflate(R.layout.property_cart_layout, null);
 
             TextView name = (TextView) view.findViewById(R.id.product_name);
-            TextView description = (TextView) view.findViewById(R.id.product_description);
+           final TextView description = (TextView) view.findViewById(R.id.product_description);
             TextView product_price = (TextView) view.findViewById(R.id.product_price);
             ImageView image = (ImageView) view.findViewById(R.id.image);
             ImageView cart_minus = (ImageView) view.findViewById(R.id.cart_minus);
@@ -50,12 +50,19 @@ public class CartListAdapter extends ArrayAdapter<Property> {
 
             //display trimmed excerpt for description
             int descriptionLength = property.getDescription().length();
-            if(descriptionLength >= 100){
-                String descriptionTrim = property.getDescription().substring(0, 100) + "...";
+            if(descriptionLength >= 50){
+                String descriptionTrim = property.getDescription().substring(0, 50) + "(...)";
                 description.setText(descriptionTrim);
             }else{
                 description.setText(property.getDescription());
             }
+
+            description.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    description.setText(property.getDescription());
+
+                }
+            });
 
             //set product price
             product_price.setText(String.valueOf(property.getPrice()) + "lei" );
@@ -90,7 +97,7 @@ public class CartListAdapter extends ArrayAdapter<Property> {
                             ((Cart) context).totalAmount();
                         }
                         MystaticVar.cartCount -= 1;
-                        Toast.makeText(context, "Produsul a fost sters din cos.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Produsul a fost sters din cos.", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     quantityOfProd.setText(String.valueOf(current));
