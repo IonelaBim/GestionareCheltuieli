@@ -19,15 +19,17 @@ import com.google.zxing.integration.android.IntentResult;
 
 
 //public class MainActivity extends AppCompactActivity implements View.OnClickListener {
-public class MainActivity extends AppCompatActivity implements View.OnClickListener  {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button scanBtn, closeBtn;
     private ImageButton cartButton;
     private TextView productCartCounter;
     private ArrayAdapter<Property> adapter;
 
-    public void CountCartProducts(int count){
+    public void CountCartProducts(int count) {
         productCartCounter.setText(Integer.toString(count));
-    };
+    }
+
+    ;
 
     //onCreate function
     @Override
@@ -35,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-     //any call you make to findViewById will lookup the id from content view (set with setContentView)
+        //any call you make to findViewById will lookup the id from content view (set with setContentView)
         closeBtn = (Button) findViewById(R.id.close_btn);
         scanBtn = (Button) findViewById(R.id.scan_button);
         cartButton = (ImageButton) findViewById(R.id.cartButton);
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         closeBtn.setOnClickListener(this);
 
         //set  products cart number
-        CountCartProducts( MystaticVar.cartCount);
+        CountCartProducts(MystaticVar.cartCount);
 
         //create a custom array adapter
         adapter = new CustomListAdapter(this, 0, MystaticVar.scanedProducts);
@@ -61,20 +63,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //onClick Events
     @Override
     public void onClick(View v) {
-       // implement the OnClickListener callback
+        // implement the OnClickListener callback
         //Close button (close application)
-        if(v.getId()==R.id.close_btn){
+        if (v.getId() == R.id.close_btn) {
             finish();
             System.exit(0);
         }
         //Scan button (Open camera to scan)
-        if(v.getId()==R.id.scan_button){
+        if (v.getId() == R.id.scan_button) {
             IntentIntegrator scanIntegrator = new IntentIntegrator(this);
             scanIntegrator.initiateScan();
         }
         //Cart button (change to Cart activity)
-        if(v.getId()==R.id.cartButton){
-            Intent intent = new Intent(this,Cart.class);
+        if (v.getId() == R.id.cartButton) {
+            Intent intent = new Intent(this, Cart.class);
             startActivity(intent);
         }
     }
@@ -88,10 +90,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //we have a result
             String scanContent = scanningResult.getContents();
             String scanFormat = scanningResult.getFormatName();
-          //verify if scaned result is a QR_CODE
-            if(scanFormat.compareTo(BarcodeFormat.QR_CODE.toString())!= 0)
-            {
-                Toast toast = Toast.makeText(getApplicationContext(),"Nu ati scanat un cod QR!", Toast.LENGTH_SHORT);
+            //verify if scaned result is a QR_CODE
+            if (scanFormat.compareTo(BarcodeFormat.QR_CODE.toString()) != 0) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Nu ati scanat un cod QR!", Toast.LENGTH_SHORT);
                 toast.show();
                 return;
             }
@@ -99,11 +100,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String[] tokens = scanContent.split(";");
             int tokenCount = tokens.length;
             //verify if scanned result has a valid format(length; data types)
-            if (tokenCount < 4){
-                Toast toast = Toast.makeText(getApplicationContext(),"Codul scanat nu este valid", Toast.LENGTH_LONG);
+            if (tokenCount < 4) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Codul scanat nu este valid", Toast.LENGTH_LONG);
                 toast.show();
                 return;
-            }else {
+            } else {
                 String img = "no_image";
                 if (!tokens[3].equals("-")) {
                     img = tokens[3];
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
 
-        }else{
+        } else {
             Toast toast = Toast.makeText(getApplicationContext(),
                     "Nu s-au primit date de la scaner", Toast.LENGTH_SHORT);
             toast.show();
